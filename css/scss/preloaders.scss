@@ -1,0 +1,260 @@
+/*
+ *author: Developed by Stas Melnikov. http://stas-melnikov.ru
+ *e-mail: melnik909$ya.ru
+ *linkedIn: https://www.linkedin.com/in/melnik909
+ *github: https://github.com/melnik909
+ *facebook: https://www.facebook.com/melnik909
+*/
+
+
+/*
+ *mixins
+ */
+
+@mixin  m_translate($x, $y){
+	-webkit-transform: translateZ(0px) translate($x, $y);
+	transform: translateZ(0px) translate($x, $y);
+}
+
+@mixin  m_rotate($deg){
+	-webkit-transform: rotate($deg);
+	transform: rotate($deg);
+}
+
+@mixin  m_circle($width, $height){
+	width: $width;
+	height: $height;
+	border-radius: 50%;
+}
+
+/*
+ *basic style
+ */
+
+.mpc_preloader{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	@include  m_translate(-50%, -50%);
+}
+
+.mpc_preloader_no_fixed{
+	position: absolute
+}
+
+/*
+ *mpc_preloader9
+ */
+ 
+$mpc_preloader9_size: 15px;
+$mpc_preloader9_color1: #6cc88a;
+$mpc_preloader9_color2: #4fc3f7;
+$mpc_preloader9_time: 1.8s;
+ 
+.mpc_preloader9{
+	
+	&:before, &:after{
+		content: "";
+		display: block;
+		@include  m_circle($mpc_preloader9_size, $mpc_preloader9_size);
+		position: absolute;
+	}
+
+	&:before{
+		
+		background-color: $mpc_preloader9_color1;
+		@include  m_translate(-50%, 0%);
+		
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		
+		-webkit-animation: mpc_preloader_left_round $mpc_preloader9_time infinite ease-in-out;
+		animation: mpc_preloader_left_round $mpc_preloader9_time infinite ease-in-out;
+	}
+
+	&:after{ 
+
+		background-color: $mpc_preloader9_color2;
+		@include  m_translate(150%, 0%);
+		
+		-webkit-animation-fill-mode: both; 
+		animation-fill-mode: both;
+		
+		-webkit-animation: mpc_preloader_right_round $mpc_preloader9_time infinite ease-in-out;
+		animation: mpc_preloader_right_round $mpc_preloader9_time infinite ease-in-out;
+	}
+}
+
+@mixin ma_mpc_preloader9($value1, $value2, $value3, $value4){
+	
+	50%{
+		@include  m_translate($value1, $value2);
+	}
+
+	100%{
+		@include  m_translate($value3, $value4);
+	}
+}
+
+@-webkit-keyframes mpc_preloader_left_round{
+	@include ma_mpc_preloader9(150%, 0%, -50%, 0%)
+}
+
+@keyframes mpc_preloader_left_round{
+	@include ma_mpc_preloader9(150%, 0%, -50%, 0%)
+}
+
+@-webkit-keyframes mpc_preloader_right_round{
+	@include ma_mpc_preloader9(-50%, 0%, 150%, 0%) 
+}
+
+@keyframes mpc_preloader_right_round{
+	@include ma_mpc_preloader9(-50%, 0%, 150%, 0%)
+}
+
+/*
+ *mpc_preloader18
+ */
+
+$mpc_preloader18_time: 2s; 
+$mpc_preloader18_size: 150px;
+$mpc_preloader18_color1: #000;
+$mpc_preloader18_color2: #fff;
+
+.mpc_preloader18{ 
+	
+    height: $mpc_preloader18_size;
+    width: $mpc_preloader18_size;
+	background-color: $mpc_preloader18_color1;
+
+	-webkit-animation:  mpc_preloader18 $mpc_preloader18_time ease-in-out alternate infinite;
+	animation: mpc_preloader18 $mpc_preloader18_time ease-in-out alternate infinite;
+}
+
+.mpc_preloader18_label{
+	
+	font-size: 16px;
+	color: $mpc_preloader18_color2;
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 2;
+	margin-left: -30px;
+	
+	-webkit-animation:  zoom_text $mpc_preloader18_time ease-in-out alternate infinite;
+	animation: zoom_text $mpc_preloader18_time ease-in-out alternate infinite;
+}
+
+@mixin ma_mpc_preloader18(){
+	100%{
+        @include  m_rotate(360deg);
+		border-radius: 50%;
+		background-color: $mpc_preloader18_color2;
+	}
+}
+
+@mixin ma_zoom_text(){
+	
+	50%{
+		opacity: 0.2;
+	}
+	
+	100%{
+	
+		opacity: 1;
+		color: $mpc_preloader18_color1;
+	}
+}
+
+@keyframes mpc_preloader18{
+	@include ma_mpc_preloader18()
+}
+
+@-webkit-keyframes mpc_preloader18{
+	@include ma_mpc_preloader18()
+}
+
+@keyframes zoom_text{
+	@include ma_zoom_text()
+}
+
+@-webkit-keyframes zoom_text{
+	@include ma_zoom_text()
+}
+
+/*
+ *mpc_preloader27
+ */
+ 
+$mpc_preloader27_size: 45px;
+$mpc_preloader27_time: 20s;
+$mpc_preloader27_font_size: 17px;
+$mpc_preloader27_font_color: #000;
+
+.mpc_preloader27{
+	
+	font-family: verdana;
+    font-size: $mpc_preloader27_font_size;
+	color: $mpc_preloader27_font_color;
+	
+	&:before{
+		
+		content: "";
+		display: inline-block; 
+		vertical-align: middle;
+		margin-right: 15px;
+		
+		height: $mpc_preloader27_size;
+		width: $mpc_preloader27_size;
+		
+		background: url('http://stas-melnikov.ru/logo_devlab.svg') no-repeat center 5px #1493c8;
+		
+		-webkit-animation: timing_background $mpc_preloader27_time infinite;
+		animation: timing_background $mpc_preloader27_time infinite;
+	}
+}
+
+@mixin ma_timing_background(){
+	
+	10%{
+		background-color:  #18cc20;
+	}
+	20%{
+		background-color: #737f09;
+	}
+	30%{
+		background-color: #760b61;
+	}
+	40%{
+		background-color: #d397c7;
+	}
+	50%{
+		background-color: #37b6df;
+	}
+	60%{
+		background-color: #b52248;
+	}
+	70%{
+		background-color: #272526;
+	}
+	80%{
+		background-color: #46549c;
+	}
+	90%{
+		background-color: #049a12;
+	}
+
+	100%{
+		background-color: #1493c8;
+	}
+}
+  
+@-webkit-keyframes timing_background{
+	@include ma_timing_background()
+}
+ 
+@keyframes timing_background{
+	@include ma_timing_background()
+}
